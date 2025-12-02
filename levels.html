@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Level | QuizAura</title>
+
+  <!-- ✅ CSS Links -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      background: radial-gradient(circle at center, #0a001a, #000);
+      color: white;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      padding-top: 130px;
+      min-height: 100vh;
+      position: relative;        /* ✅ ensures body is on top */
+      z-index: 1;                /* ✅ makes content clickable */
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      text-shadow: 0 0 20px #8e2de2, 0 0 40px #4a00e0;
+      margin-bottom: 50px;
+      animation: glowText 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowText {
+      from {
+        text-shadow: 0 0 20px #8e2de2, 0 0 40px #4a00e0;
+      }
+      to {
+        text-shadow: 0 0 35px #b56aff, 0 0 70px #8e2de2;
+      }
+    }
+
+    .level-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      position: relative;        /* ✅ ensures button layer is on top */
+      z-index: 10;
+    }
+
+    .level-btn {
+      background: linear-gradient(90deg, #8e2de2, #4a00e0);
+      border: none;
+      border-radius: 35px;
+      color: white;
+      padding: 15px 45px;
+      font-size: 1.3rem;
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 25px #8e2de2;
+      position: relative;        /* ✅ clickable */
+      z-index: 20;
+    }
+
+    .level-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 45px #b56aff, 0 0 70px #8e2de2;
+      background: linear-gradient(90deg, #4a00e0, #8e2de2);
+    }
+
+    footer {
+      margin-top: 100px;
+      color: #aaa;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 🌟 Navbar -->
+  <header class="navbar" style="z-index: 5;">
+    <div class="navbar-left">
+      <div class="navbar-logo">
+        <span>QuizAura</span>
+      </div>
+    </div>
+
+    <div class="navbar-center">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('about') }}">About</a>
+      <a href="{{ url_for('fun') }}">Fun</a>
+      <a href="{{ url_for('contact') }}">Contact</a>
+    </div>
+
+    <div class="navbar-right">
+      <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+  </header>
+
+  <!-- 🌈 Level Selection Section -->
+  <section>
+    <h1>Select Your Difficulty Level</h1>
+
+    <div class="level-buttons">
+      <a href="{{ url_for('quiz', level='Easy') }}" class="level-btn">😄 Easy</a>
+      <a href="{{ url_for('quiz', level='Medium') }}" class="level-btn">💪 Medium</a>
+      <a href="{{ url_for('quiz', level='Hard') }}" class="level-btn">🔥 Hard</a>
+    </div>
+  </section>
+
+  {% include 'footer.html' %}
+</body>
+</html>

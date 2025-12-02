@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun Zone | QuizAura</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+  <body class="fun-page">
+
+
+  <!-- 🟣 Navbar -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-logo">
+        <span>QuizAura</span>
+      </div>
+    </div>
+
+    <div class="navbar-center">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('about') }}">About</a>
+
+      <div class="dropdown">
+        <button class="dropbtn">Learn <i class="fas fa-chevron-down"></i></button>
+        <div class="dropdown-content">
+          <a href="{{ url_for('learn') }}#science">Science</a>
+          <a href="{{ url_for('learn') }}#history">History</a>
+          <a href="{{ url_for('learn') }}#gk">General Knowledge</a>
+          <a href="{{ url_for('learn') }}#technology">Technology</a>
+        </div>
+      </div>
+
+      <a href="{{ url_for('fun') }}" class="active">Fun</a>
+      <a href="{{ url_for('contact') }}">Contact</a>
+    </div>
+
+    <div class="navbar-right">
+      <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+  </header>
+
+  <!-- 🎬 Fun Emoji Movie Guess Game -->
+  <section class="fun-section">
+    <h1>🎥 Emoji Movie Guess Game 🍿</h1>
+    <p>Can you guess these Indian movies from emojis? Let's test your filmy knowledge!</p>
+
+    <div class="game-box">
+      <h3 id="emoji">🎬🤔</h3>
+      <input type="text" id="userGuess" placeholder="Type movie name...">
+      <br>
+      <button onclick="checkMovie()">Check Answer</button>
+      <p class="result" id="result"></p>
+      <button onclick="nextMovie()">Next ➡️</button>
+    </div>
+  </section>
+
+  <!-- 🧠 Script Section -->
+  <script>
+    const movies = [
+      { emoji: "💃🕺🎵", answer: "abcd" },
+      { emoji: "👰🤵❤️", answer: "vivah" },
+      { emoji: "👩‍❤️‍👨🌧️🎶", answer: "aashiqui 2" },
+      { emoji: "🕵️‍♂️🔍💣", answer: "baby" },
+      { emoji: "🛕🔥👊", answer: "bahubali" },
+      { emoji: "👨‍👩‍👧‍👦🏠❤️", answer: "kabhi khushi kabhie gham" },
+      { emoji: "🎤🎶💔", answer: "rockstar" },
+      { emoji: "🚌🏃‍♂️❤️", answer: "jab we met" },
+      { emoji: "🎓🏫👨‍🏫", answer: "3 idiots" },
+      { emoji: "💂🇮🇳💣", answer: "border" },
+      { emoji: "💰🕶️🚗", answer: "dhoom" },
+      { emoji: "🐍👸", answer: "naagin" },
+      { emoji: "👩‍❤️‍👨🎻❤️", answer: "mohabbatein" },
+      { emoji: "🧑‍⚕️💊💉", answer: "munna bhai mbbs" },
+      { emoji: "🎭🧙‍♂️🔥", answer: "brahmastra" },
+      { emoji: "🚂🛤️❤️", answer: "dilwale dulhania le jayenge" },
+      { emoji: "🎬👮‍♂️🔫", answer: "singham" },
+      { emoji: "🏍️💥💣", answer: "war" },
+      { emoji: "🏋️‍♂️🥇🇮🇳", answer: "sultan" },
+      { emoji: "👩‍🎓📖🎓", answer: "chhichhore" },
+      { emoji: "🎨👩‍🎤🎤", answer: "secret superstar" },
+      { emoji: "🐅👊🦁", answer: "tiger zinda hai" },
+      { emoji: "🎭💀👑", answer: "padmaavat" },
+      { emoji: "👮‍♀️🔫💪", answer: "mardaani" },
+      { emoji: "👑🧙‍♂️⚔️", answer: "rrr" },
+      { emoji: "💣🕵️‍♀️🎯", answer: "raazi" },
+      { emoji: "🕺💃🎶", answer: "student of the year" },
+      { emoji: "🧔📸👩‍🍼", answer: "barfi" },
+      { emoji: "👮‍♂️💥🚔", answer: "sooryavanshi" },
+      { emoji: "🧑‍🏫📚🎓", answer: "super 30" },
+      { emoji: "💃❤️🎶", answer: "ram leela" },
+      { emoji: "🐒🏝️👑", answer: "hanuman" },
+      { emoji: "👨‍👩‍👧🎭❤️", answer: "kapoor and sons" },
+      { emoji: "🎯🏹🔥", answer: "adipurush" },
+      { emoji: "🕵️‍♂️💻🕶️", answer: "kahani" },
+      { emoji: "🎤💔😭", answer: "aashiqui" },
+      { emoji: "🏎️💨🕶️", answer: "race" },
+      { emoji: "🎂🎉👯‍♀️", answer: "yeh jawaani hai deewani" },
+      { emoji: "👊💥🩸", answer: "ghajini" },
+      { emoji: "💉👩‍⚕️💊", answer: "kabir singh" },
+      { emoji: "🎭👸💔", answer: "jodha akbar" },
+      { emoji: "👳‍♂️🍺🎭", answer: "chennai express" },
+      { emoji: "🚗🏎️💣", answer: "race 3" },
+      { emoji: "👰🤵🌹", answer: "hum aapke hain koun" },
+      { emoji: "👮‍♂️💥🇮🇳", answer: "holiday" },
+      { emoji: "👩‍❤️‍👨🎶", answer: "veer zaara" },
+      { emoji: "🏏🇮🇳🔥", answer: "ms dhoni" },
+      { emoji: "👨‍🏫🎓❤️", answer: "tare zameen par" },
+      { emoji: "👊🔥⚔️", answer: "kgf" },
+      { emoji: "🕵️‍♂️🔎🎭", answer: "drishyam" },
+      { emoji: "👩‍❤️‍👨🛶", answer: "satyaprem ki katha" },
+      { emoji: "👩‍❤️‍👨💃🕺", answer: "kalank" },
+      { emoji: "🎭🎪🐘", answer: "circus" },
+      { emoji: "👶❤️🏠", answer: "bajrangi bhaijaan" },
+      { emoji: "🧑‍⚕️💉🩸", answer: "good newwz" },
+      { emoji: "🧑‍⚖️⚖️🇮🇳", answer: "pink" },
+      { emoji: "👩‍🎤🎶🔥", answer: "rock on" },
+      { emoji: "🏡💃🕺🎶", answer: "hum saath saath hain" },
+      { emoji: "💰🕶️🚗🔥", answer: "don" },
+      { emoji: "🚗👮‍♂️💣", answer: "dishoom" },
+      { emoji: "🏙️🕶️💻", answer: "robot" },
+      { emoji: "💔🎭👑", answer: "devdas" },
+      { emoji: "🧔🎤🎶", answer: "aashiqui 3" }
+    ];
+
+    let index = 0;
+
+    function showMovie() {
+      document.getElementById("emoji").textContent = movies[index].emoji;
+      document.getElementById("userGuess").value = "";
+      document.getElementById("result").textContent = "";
+      document.getElementById("userGuess").style.backgroundColor = "";
+    }
+
+    function checkMovie() {
+      const guess = document.getElementById("userGuess").value.trim().toLowerCase();
+      const result = document.getElementById("result");
+      const inputBox = document.getElementById("userGuess");
+
+      if (guess === "") {
+        result.textContent = "⚠️ Please enter a movie name!";
+        result.style.color = "#ffcc70";
+        return;
+      }
+
+      if (guess === movies[index].answer) {
+        result.textContent = "✅ Correct! Great job!";
+        result.style.color = "#00ff88";
+        inputBox.style.backgroundColor = "rgba(0,255,0,0.2)";
+      } else {
+        result.textContent = "❌ Try again!";
+        result.style.color = "#ff4d4d";
+        inputBox.style.backgroundColor = "rgba(255,0,0,0.2)";
+      }
+    }
+
+    function nextMovie() {
+      index++;
+      if (index >= movies.length) {
+        index = 0;
+        alert("🎉 You’ve completed all movies! Starting again...");
+      }
+      showMovie();
+    }
+
+    // Show first movie initially
+    showMovie();
+  </script>
+   {% include 'footer.html' %}
+</body>
+
+</html>
+

@@ -1,0 +1,111 @@
+/* ✨ Learn Page Style ✨ */
+
+body.learn-page {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: url("/static/images/download.png") no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+  min-height: 100vh;
+  position: relative;
+}
+
+body.learn-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 0;
+}
+
+/* 🌟 Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  z-index: 100;
+  box-shadow: 0 0 20px rgba(142, 45, 226, 0.6);
+}
+
+.navbar-logo span {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 2rem;
+  color: #fff;
+  text-shadow: 0 0 15px #8e2de2, 0 0 30px #8e2de2;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 30px;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #8e2de2;
+}
+
+/* 📘 Learn Sections */
+.learn-container {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 120px auto 80px;
+  padding: 20px;
+  /* background: rgba(255, 255, 255, 0.1); */
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(142, 45, 226, 0.5);
+}
+
+.learn-container section {
+  margin-bottom: 60px;
+}
+
+.learn-container h2 {
+  color:white;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  text-shadow: 0 0 15px #8e2de2;
+}
+
+.learn-container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: white;
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+  .navbar-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .learn-container {
+    margin: 140px 20px 60px;
+  }
+}
+
+

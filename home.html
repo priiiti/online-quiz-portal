@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizAura | Home</title>
+
+  <!-- ✅ CSS Files -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="home-page">
+
+  <!-- 🌟 Navbar Section -->
+   <header class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-logo">
+        <span>QuizAura</span>
+      </div>
+    </div>
+
+    <div class="navbar-center">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('about') }}">About</a>
+
+      <div class="dropdown">
+        <button class="dropbtn">Learn <i class="fas fa-chevron-down"></i></button>
+        <div class="dropdown-content">
+          <a href="{{ url_for('learn') }}#science">Science</a>
+          <a href="{{ url_for('learn') }}#history">History</a>
+          <a href="{{ url_for('learn') }}#gk">General Knowledge</a>
+          <a href="{{ url_for('learn') }}#technology">Technology</a>
+        </div>
+      </div>
+
+      <a href="{{ url_for('fun') }}" class="active">Fun</a>
+      <a href="{{ url_for('contact') }}">Contact</a>
+    </div>
+
+    <div class="navbar-right">
+      <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+  </header>
+
+  <!-- 🏠 Home Page Section -->
+  <section class="home-section">
+    <div class="home-left">
+      <img src="{{ url_for('static', filename='images/side img 2.jpg') }}" alt="Student Image">
+    </div>
+
+    <div class="home-right">
+      <h2>Welcome, {{ username }} 👋</h2>
+      <p>Ready to test your knowledge and boost your skills?</p>
+
+      <!-- ✅ Correct link -->
+      <a href="{{ url_for('levels') }}" class="btn">Start Quiz</a>
+    </div>
+  </section>
+
+  {% include 'footer.html' %}
+</body>
+</html>

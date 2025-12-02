@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn | QuizAura</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="home-page">
+
+  <!-- ✅ Navbar Section -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-logo">
+        <span>QuizAura</span>
+      </div>
+    </div>
+
+    <div class="navbar-center">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('about') }}">About</a>
+
+      <div class="dropdown">
+        <button class="dropbtn">
+          Learn <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="#science">Science</a>
+          <a href="#history">History</a>
+          <a href="#gk">General Knowledge</a>
+          <a href="#technology">Technology</a>
+        </div>
+      </div>
+
+      <a href="{{ url_for('fun') }}">Fun</a>
+      <a href="{{ url_for('contact') }}">Contact</a>
+    </div>
+
+    <div class="navbar-right">
+      <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+  </header>
+
+  <!-- ✅ Learn Page Main Section -->
+  <section class="about-section">
+    <h1>Learn with QuizAura</h1>
+    <p>Sharpen your knowledge with our interactive learning sections on Science, History, GK, and Technology 🔮</p>
+  </section>
+
+  <!-- 🔬 Science Section -->
+  <section id="science" class="home-section">
+    <div class="home-left">
+      <img src="{{ url_for('static', filename='images/scei-img.jpg') }}" alt="Science">
+    </div>
+    <div class="home-right">
+      <h2>Science</h2>
+      <p>Discover fascinating facts about physics, chemistry, and biology. Learn how the universe works and test your curiosity!</p>
+      {# <a href="{{ url_for('quiz', category='science') }}" class="btn">Start Learning</a> #}
+    </div>
+  </section>
+
+  <!-- 🏛 History Section -->
+  <section id="history" class="home-section">
+    <div class="home-left">
+      <img src="{{ url_for('static', filename='images/history-img.jpg') }}" alt="History">
+    </div>
+    <div class="home-right">
+      <h2>History</h2>
+      <p>Travel back in time and explore world-changing events, civilizations, and leaders from our past.</p>
+      {# <a href="{{ url_for('quiz', category='history') }}" class="btn">Start Learning</a> #}
+    </div>
+  </section>
+
+  <!-- 🌍 General Knowledge Section -->
+  <section id="gk" class="home-section">
+    <div class="home-left">
+      <img src="{{ url_for('static', filename='images/genral-img.jpg') }}" alt="General Knowledge">
+    </div>
+    <div class="home-right">
+      <h2>General Knowledge</h2>
+      <p>From sports to space — test your all-round awareness and keep your mind sharp and active.</p>
+      {# <a href="{{ url_for('quiz', category='gk') }}" class="btn">Start Learning</a> #}
+    </div>
+  </section>
+
+  <!-- 💻 Technology Section -->
+  <section id="technology" class="home-section">
+    <div class="home-left">
+      <img src="{{ url_for('static', filename='images/maths-img.jpg') }}" alt="Technology">
+    </div>
+    <div class="home-right">
+      <h2>Mathematics</h2>
+      <p>Dive into the world of innovations, AI, and coding that shape our future.</p>
+      {# <a href="{{ url_for('quiz', category='technology') }}" class="btn">Start Learning</a> #}
+    </div>
+  </section>
+
+  <!-- ✅ Footer -->
+  {% include 'footer.html' %}
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

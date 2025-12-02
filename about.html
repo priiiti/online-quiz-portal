@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | QuizAura</title>
+
+  <!-- ✅ Google Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* 🌌 Background setup */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #0a0a0f, #000);
+      background-image: url("{{ url_for('static', filename='images/space-bg.jpg') }}");
+      background-size: cover;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: #fff;
+    }
+
+    /* 🌟 Navbar (same as Fun page) */
+    .navbar {
+      background: linear-gradient(180deg, #000000 60%, #0a001a 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 10%;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+      box-shadow: 0 2px 20px rgba(142, 45, 226, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-logo span {
+      font-size: 2rem;
+      font-family: "Cinzel Decorative", serif;
+      color: #fff;
+      text-shadow: 0 0 15px #8e2de2, 0 0 35px #8e2de2;
+      font-weight: bold;
+    }
+
+    .navbar-center a {
+      color: #ddd;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .navbar-center a.active,
+    .navbar-center a:hover {
+      color: #bb86fc;
+      text-shadow: 0 0 10px #8e2de2;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropbtn {
+      background: none;
+      border: none;
+      color: #ddd;
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    .dropbtn:hover {
+      color: #bb86fc;
+      text-shadow: 0 0 10px #8e2de2;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: rgba(15, 15, 25, 0.95);
+      box-shadow: 0 0 15px rgba(142, 45, 226, 0.4);
+      border-radius: 10px;
+      min-width: 160px;
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: #ddd;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background: linear-gradient(90deg, #8e2de2, #4a00e0);
+      color: #fff;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .logout-btn {
+      background: linear-gradient(135deg, #8e2de2, #4a00e0);
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s ease;
+      box-shadow: 0 0 15px #8e2de2;
+    }
+
+    .logout-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #b56aff;
+    }
+
+    /* 🌠 About Section */
+    .about-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 60px;
+      padding: 160px 10%;
+      color: #050404;
+    }
+
+    .about-content {
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .about-content h1 {
+      font-size: 2.5rem;
+      font-family: "Cinzel Decorative", serif;
+      text-shadow: 0 0 20px #8e2de2, 0 0 40px #8e2de2;
+      margin-bottom: 20px;
+    }
+
+    .about-content p {
+      line-height: 1.8;
+      color: #060606;
+      font-size: 1.05rem;
+      margin-bottom: 15px;
+    }
+
+    .about-content ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    .about-content ul li {
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .about-content ul li::before {
+      /* content: ""; */
+      position: absolute;
+      left: 0;
+      color: #b56aff;
+    }
+
+    .about-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .about-image img {
+      width: 420px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(142, 45, 226, 0.6);
+      transition: transform 0.3s ease;
+    }
+
+    .about-image img:hover {
+      transform: scale(1.05);
+    }
+
+    /* 🌙 Footer */
+    footer {
+      background: linear-gradient(135deg, #0f0f1a, #1a0030);
+      color: #ffffff;
+      padding: 50px 0 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 -2px 20px rgba(142, 45, 226, 0.4);
+      width: 100%;
+      margin-top: auto;
+      z-index: 10;
+    }
+
+    footer .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    footer a {
+      color: #dcdcdc;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #bb86fc;
+      text-shadow: 0 0 8px #8e2de2;
+    }
+
+    /* 📱 Responsive */
+    @media (max-width: 900px) {
+      .about-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 120px 5%;
+        gap: 40px;
+      }
+      .about-image img {
+        width: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 🌟 Navbar -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="navbar-logo">
+        <span>QuizAura</span>
+      </div>
+    </div>
+
+    <div class="navbar-center">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('about') }}" class="active">About</a>
+
+      <div class="dropdown">
+        <button class="dropbtn">Learn <i class="fas fa-chevron-down"></i></button>
+        <div class="dropdown-content">
+          <a href="{{ url_for('learn') }}#science">Science</a>
+          <a href="{{ url_for('learn') }}#history">History</a>
+          <a href="{{ url_for('learn') }}#gk">General Knowledge</a>
+          <a href="{{ url_for('learn') }}#technology">Technology</a>
+        </div>
+      </div>
+
+      <a href="{{ url_for('fun') }}">Fun</a>
+      <a href="{{ url_for('contact') }}">Contact</a>
+    </div>
+
+    <div class="navbar-right">
+      <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+  </header>
+
+  <!-- 💫 About Section -->
+  <section class="about-section">
+    <div class="about-content">
+      <h1>About QuizAura</h1>
+      <p><strong>QuizAura</strong> is a smart, interactive, and fun platform that turns learning into a game! Explore quizzes in <strong>Science, History, GK, and Technology</strong> while tracking your progress and challenging yourself.</p>
+
+      <p> Designed for students, teachers, and curious learners — QuizAura makes education engaging, enjoyable, and competitive.</p>
+
+      <ul>
+        <li>Responsive and user-friendly interface</li>
+        <li>Level-based quizzes: Easy, Medium, Hard</li>
+        <li>Instant results and progress tracking</li>
+        <li>Learn mode for topic-wise study</li>
+        <li>Fun zone with movie & emoji games</li>
+      </ul>
+
+      <p>With <strong>QuizAura</strong>, every quiz brings you closer to mastery! </p>
+    </div>
+
+    <div class="about-image">
+      <img src="{{ url_for('static', filename='images/side img 1.jpg') }}" alt="About QuizAura">
+    </div>
+  </section>
+
+  {% include 'footer.html' %}
+</body>
+</html>
